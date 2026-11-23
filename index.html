@@ -111,13 +111,18 @@ button{font-family:inherit}
 /* mobile stacked rows */
 .mlist{list-style:none;margin:0;padding:0;display:none}
 .is-mobile .mlist{display:block}
-.mrow{padding:10px 0;border-bottom:1px solid var(--line-light)}
-.mrow:last-child{border-bottom:0}
+/* Banded like desktop rows; bands run edge to edge of the card, text inset */
+.mrow{padding:10px 12px}
+.mrow:nth-child(even){background:var(--bg-light)}
+.is-mobile .tablecard .mlist{margin:0 -16px}
+.is-mobile .tablecard .mrow{padding:10px 16px}
 .m1{display:flex;align-items:center;gap:8px;color:var(--text-secondary)}
 .m1 > span:first-child{white-space:nowrap}
-.m1 .co{color:var(--blue);font-weight:700}
+.m1 .co{color:var(--blue);font-weight:700;display:inline-block;line-height:24px}
 .m1 .push{margin-left:auto;display:flex;align-items:center;gap:8px}
-.m2{margin-top:4px;font-size:15px;line-height:22px}
+/* 13px like desktop; 24px-tall company target + 6px gap + 20px headline lines keep tap targets apart */
+.m1{min-height:24px}
+.m2{margin-top:6px;font-size:13px;line-height:20px}
 /* News feed: Type column capped so long types wrap rather than squeeze headlines */
 .feed-right .nt td.ty{white-space:normal;width:190px;min-width:190px;max-width:190px}
 
@@ -126,7 +131,7 @@ button{font-family:inherit}
 .with-filters{display:grid;grid-template-columns:224px minmax(0,1fr);gap:14px;align-items:start}
 .feed-grid{display:grid;grid-template-columns:216px minmax(0,1fr);gap:14px;align-items:start}
 .feed-left .seg2{display:flex}
-.feed-left .seg2 button{flex:1;white-space:nowrap;padding:6px 8px}
+.feed-left .seg2 button{flex:1;white-space:nowrap;padding:5px 8px}
 .ptl{margin:0 0 16px;font-size:32px;line-height:42px}
 .feed-right .cap{padding:22px 0 14px;font-size:15px;line-height:22px}
 .pager{display:flex;align-items:center;justify-content:center;gap:16px;padding:16px 0}
@@ -170,9 +175,21 @@ button{font-family:inherit}
 .fl-v2 .ftabs button:last-child[aria-selected="true"]{box-shadow:-1px 0 0 var(--line)}
 .fl-v2 .ftabs + .fhead{padding-top:16px}
 .fl-v2 .fseg .seg2{display:flex}
-.fl-v2 .fseg .seg2 button{flex:1;white-space:nowrap;padding:6px 8px}
+.fl-v2 .fseg .seg2 button{flex:1;white-space:nowrap;padding:5px 8px}
 .fl-v2 .feed-left > .seg2{display:none}
 .fl-v2 .feed-left .ptl{margin-bottom:12px}
+/* Mobile top section (refined): row 1 = title + scope dropdown, row 2 = timeframe + count + Filter */
+.ptlrow .ptlseg,.feed-right .rbar .fbtn-r{display:none}
+.fl-v2 .is-mobile .ptlrow{display:flex;align-items:center;gap:12px;margin:0}
+.fl-v2 .is-mobile .feed-grid{row-gap:0}
+.fl-v2 .is-mobile .ptlrow .ptl{margin:0}
+.fl-v2 .is-mobile .ptlrow .ptlseg{display:block;flex:1;min-width:0}
+.fl-v2 .is-mobile .ptlseg .seg2{display:flex}
+.fl-v2 .is-mobile .ptlseg .seg2 button{flex:1;white-space:nowrap;padding:5px 8px}
+.fl-v2 .is-mobile .feed-grid .feed-left > .seg2,.fl-v2 .is-mobile .feed-grid .feed-left > .fbtn{display:none}
+.fl-v2 .is-mobile .feed-right .rbar .fbtn-r{display:inline-flex;margin:0 0 0 auto}
+/* Timeframe + count row matches the H1 row (42px + 12px) so filter card and table card tops align */
+.fl-v2 .feed-right .rbar{padding:0;height:42px;margin-bottom:12px}
 .fl-v2 .fpanel .fhead{border-bottom:0;padding:14px 16px 6px}
 .fl-v2 .fpanel .fhead h2{font-size:17px!important;line-height:22px}
 .fl-v2 .fs-head h2{font-size:17px;line-height:22px}
@@ -224,9 +241,10 @@ button{font-family:inherit}
 /* ---------- Page headers ---------- */
 .ptitle{max-width:1250px;margin:4px auto 16px;display:flex;align-items:flex-end;gap:16px;flex-wrap:wrap}
 .ptitle h1{margin:0;font-size:32px;line-height:42px}
-.seg2{display:inline-flex;background:var(--line-light);border-radius:4px;padding:2px}
-.seg2 button{border:0;background:transparent;color:var(--ink-3);font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:.3px;padding:6px 12px;border-radius:3px;cursor:pointer}
-.seg2 button[aria-pressed="true"]{background:#fff;color:var(--blue);box-shadow:0 1px 2px rgba(41,49,64,.15)}
+/* Segmented control per Figma (Buttons & inputs): track = brand blue highlight #DAE4F1, selected = white + 10% black border */
+.seg2{display:inline-flex;background:var(--blue-light);border-radius:4px;padding:2px}
+.seg2 button{border:0;background:transparent;color:var(--ink-3);font-size:13px;font-weight:400;text-transform:uppercase;letter-spacing:.3px;padding:5px 12px;border-radius:3px;cursor:pointer;border:1px solid transparent}
+.seg2 button[aria-pressed="true"]{background:#fff;color:var(--blue);border-color:rgba(0,0,0,.1)}
 .ehead{padding:20px 24px 0}
 .ehead h1{margin:0;font-size:32px;line-height:42px}
 .ehead .sub{display:flex;align-items:baseline;gap:12px;margin-top:4px;flex-wrap:wrap}
@@ -247,9 +265,13 @@ button{font-family:inherit}
 .today .wcard[aria-labelledby="w-news"] .whead{padding:0 12px}
 .today .wcard[aria-labelledby="w-news"] .nt th:first-child,.today .wcard[aria-labelledby="w-news"] .nt td:first-child{padding-left:12px}
 .today .wcard[aria-labelledby="w-news"] .nt th:last-child,.today .wcard[aria-labelledby="w-news"] .nt td:last-child{padding-right:12px}
-.is-mobile .today .wcard[aria-labelledby="w-news"] .mlist{padding:0 12px}
+.is-mobile .today .wcard[aria-labelledby="w-news"] .mlist{padding:0;border-top:1px solid var(--line)}
 .whead h2{margin:0;font-size:24px;line-height:31px}
 .whead .btn{margin-left:auto}
+.tabwrap{display:none}
+.is-mobile .whead .seg2{display:none}
+.is-mobile .whead .tabwrap{display:inline-flex}
+.is-mobile .whead{column-gap:8px}
 .fapplied{display:inline-flex;align-items:center;gap:4px;height:32px;padding:0 12px;border-radius:16px;background:var(--blue-light);border:1px solid var(--blue);color:var(--blue-dark);font-weight:700}
 .fapplied .msym{font-size:16px}
 .wscroll{max-height:600px;overflow:auto}
@@ -301,7 +323,9 @@ body.sheet-open{overflow:hidden}
 .vbar .pg{margin-left:auto;display:flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums;white-space:nowrap}
 .vbar .div{width:1px;height:20px;background:rgba(255,255,255,.2);margin:0 4px}
 .vbar .zm{min-width:48px;text-align:center;font-variant-numeric:tabular-nums}
-.vscroll{background:#5F6B82;border-radius:0 0 8px 8px;padding:24px;display:flex;flex-direction:column;align-items:center;gap:16px}
+.vscroll{background:#5F6B82;border-radius:0 0 8px 8px;padding:24px;display:flex;flex-direction:column;align-items:safe center;gap:16px}
+.vbar .zm{font:inherit;color:inherit;background:none;border:0;padding:4px;cursor:pointer;border-radius:4px}
+.vbar .zm:hover{background:rgba(255,255,255,.12)}
 .pdfpage{background:#fff;width:var(--pw,640px);flex:none;aspect-ratio:1/1.414;box-shadow:0 2px 8px rgba(0,0,0,.3);padding:calc(var(--pw,640px)*.07);font-size:calc(var(--pw,640px)*.017);line-height:1.5;color:#222;position:relative;overflow:hidden}
 .pdfpage .ph{display:flex;justify-content:space-between;border-bottom:2px solid #222;padding-bottom:.6em;margin-bottom:1.4em;font-weight:700}
 .pdfpage h4{margin:0 0 .4em;font-size:2.2em;line-height:1.15}
@@ -368,18 +392,26 @@ body.sheet-open{overflow:hidden}
 .is-mobile .fbtn{display:inline-flex}
 .is-mobile .tablecard{padding:0 16px 8px}
 .is-mobile .feed-right .cap{padding:12px 0 8px}
+.fl-v2 .is-mobile .feed-right .rbar{height:auto;margin-bottom:0}
 .is-mobile .today{grid-template-columns:1fr}
 .is-mobile .ghost{display:none}
 .is-mobile .wscroll{max-height:none}
 .is-mobile .ehead{padding:16px 16px 0}
 .is-mobile .val{margin-left:0;text-align:left;width:100%}
-.ov.is-mobile .dr-head{flex-direction:column;gap:4px}
-.ov.is-mobile .dr-nav{order:-1;align-self:flex-end}
+/* Mobile: title wraps beside the close button (no separate row for ×) */
+.ov.is-mobile .dr-head{gap:8px}
+.ov.is-mobile .dr-nav{margin:-4px -4px 0 0}
 .ov.is-mobile .dr-nav .cnt,.ov.is-mobile .dr-nav .btn{display:none}
 .ov.is-mobile .dr-title{font-size:17px;line-height:22px}
 .ov.is-mobile .dr-side{display:none}
-.ov.is-mobile .viewer{display:none}
-.ov.is-mobile .doccard{display:flex}
+/* Mobile: pages full width of the sheet, edge to edge; pinch / double-tap to zoom inside the viewer */
+.ov.is-mobile .viewer{border:0;border-radius:0;margin-left:-12px;margin-right:-12px}
+.ov.is-mobile .vbar{border-radius:0;padding:2px 4px 2px 12px}
+.ov.is-mobile .vbar .fn,.ov.is-mobile .vbar [data-zm],.ov.is-mobile .vbar .div{display:none}
+.ov.is-mobile .vbar .pg{margin-left:0}
+.ov.is-mobile .vbar .zm{margin-left:auto}
+.ov.is-mobile .vscroll{border-radius:0;padding:8px;gap:8px;overflow-x:auto;touch-action:pan-x pan-y;-webkit-overflow-scrolling:touch}
+.ov.is-mobile .pdfimg{box-shadow:0 1px 3px rgba(0,0,0,.3)}
 </style>
 </head>
 <body>
@@ -387,7 +419,7 @@ body.sheet-open{overflow:hidden}
   <div class="grp"><span class="lbl">View</span>
     <div class="seg" id="seg-view">
       <button type="button" data-v="today">Today</button>
-      <button type="button" data-v="feed">News feed</button>
+      <button type="button" data-v="feed">News</button>
       <button type="button" data-v="folio">Folio news</button>
       <button type="button" data-v="stock">Stock news</button>
       <button type="button" data-v="note">Broker note open</button>
@@ -478,6 +510,9 @@ function bn(t, id, chg, sr, mc){ var n=NOTES[id], s=STOCKS[n.stock]; return {t:t
 
 /* ---------- Datasets (from live-app screenshots, with broker notes added) ---------- */
 var FOLIOS_TODAY = [
+  bn('12:40 pm','srb-1023',-10.17,79,137.4),
+  bn('12:35 pm','enq-1118',-3.1,93,520.0),
+  bn('12:30 pm','stf-1118',7.8,66,42.3),
   {t:'12:11 pm',co:'Taylor Wimpey',type:'director',h:'Director/PDMR Shareholding',chg:-0.5,sr:82,mc:2620.8},
   {t:'12:00 pm',co:'Harbour Energy',type:'ownership',h:'Holding(s) in Company',chg:0.8,sr:93,mc:3990.1},
   {t:'11:45 am',co:'Babcock International',type:'ownership',h:'Holding(s) in Company',chg:0.0,sr:24,mc:4818.6},
@@ -487,25 +522,22 @@ var FOLIOS_TODAY = [
   {t:'9:20 am',co:'Staffline',type:'director',h:'Director/PDMR Shareholding',chg:7.8,sr:66,mc:42.3},
   {t:'7:30 am',co:'Severn Trent',type:'mgmt',h:'Director Declaration',chg:0.4,sr:52,mc:9981.4},
   {t:'7:15 am',co:'ITV',type:'mgmt',h:'Directorate change',chg:-0.9,sr:81,mc:2361.8},
-  bn('7:00 am','srb-1023',-10.17,79,137.4),
-  bn('7:00 am','enq-1118',-3.1,93,520.0),
-  bn('7:00 am','stf-1118',7.8,66,42.3),
   {t:'7:00 am',co:'SThree',type:'company',h:'SThree to unveil human-led AI operating system',chg:5.2,sr:98,mc:352.8},
   {t:'7:00 am',co:'Enquest',type:'maKey',h:'Sale of EnQuest’s UK North Sea Business',chg:-3.1,sr:93,mc:520.0}
 ];
 var MARKETS = [
+  bn('12:40 pm','srb-1023',-10.17,79,137.4),
+  bn('12:30 pm','vic-1118',-11.4,48,38.2),
+  bn('12:20 pm','orr-1118',-9.7,36,9.5),
+  bn('12:10 pm','pot-1118',-6.4,79,14.6),
+  bn('12:00 pm','vnt-1118',2.0,87,20.9),
   {t:'11:42 am',co:'CAP-XX',type:'company',h:'CAP-XX Limited - Receipt of R&D tax credit',chg:8.5,sr:13,mc:7.4},
   {t:'10:07 am',co:'Utilico Emerging Markets Trust',type:'results',h:'Utilico Emerging Mkt - Half-year Financial Report',chg:0.4,sr:null,mc:451.9},
   {t:'9:17 am',co:'Litigation Capital Management',type:'company',h:'Litigation Cap. Mgmt - Appeal Unsuccessful',chg:-10.1,sr:16,mc:0.5},
   {t:'8:02 am',co:'EFG Holding SAE',type:'results',h:'EFG Holding S.A.E. - 3rd Quarter Results',chg:null,sr:31,mc:543.6},
   {t:'7:33 am',co:'Theracryf',type:'company',h:'Ethics submission for Ox-1 Phase 1 study',chg:1.2,sr:10,mc:4.5},
-  bn('7:20 am','vic-1118',-11.4,48,38.2),
-  bn('7:15 am','orr-1118',-9.7,36,9.5),
-  bn('7:10 am','pot-1118',-6.4,79,14.6),
   {t:'7:08 am',co:'SSE',type:'results',h:'Interim Report',chg:null,sr:null,mc:null},
-  bn('7:05 am','vnt-1118',2.0,87,20.9),
   {t:'7:01 am',co:'Potter & Moore',type:'results',h:'Interim results for six months ended 30 Sept 2026',chg:-6.4,sr:79,mc:14.6},
-  bn('7:00 am','srb-1023',-10.17,79,137.4),
   {t:'7:00 am',co:'TwentyFour Income Fund',type:'results',h:'TwentyFour Income Fund Limited: Interim Results for the Six Months Ended 30 September 2026',chg:0.0,sr:52,mc:1002.2},
   {t:'7:00 am',co:'Fidelity Special Values',type:'results',h:'Annual Financial Report',chg:-0.2,sr:null,mc:1523.8},
   {t:'7:00 am',co:'OptiBiotix Health',type:'company',h:'OptiBiotix Health - Exclusive Distribution deal for SlimBiome',chg:6.8,sr:31,mc:4.5},
@@ -559,9 +591,9 @@ var MARKETS_WEEK_MORE = (function(){
   return out;
 })();
 var FOLIO = [
+  bn('12:40 pm','srb-1023',-10.17,79,137.4),
   {t:'9:21 am',co:'Cake Box Holdings',type:'ownership',h:'Cake Box Holdings - Holding(s) in Company',chg:0.0,sr:67,mc:74.8},
   {t:'7:00 am',co:'Peel Hunt',type:'results',h:'Peel Hunt Limited - Interim Results',chg:-0.6,sr:79,mc:109.9},
-  bn('7:00 am','srb-1023',-10.17,79,137.4),
   bn('Mon, Nov 16, 2026','php-1116',-0.6,79,109.9),
   {t:'Mon, Nov 16, 2026',co:'Fidelity Emerging Markets',type:'director',h:'Fidelity Emerging Markets Limited: Director/PDMR Shareholding',chg:-2.8,sr:85,mc:425.2},
   {t:'Nov 9, 2026',co:'Cake Box Holdings',type:'keydates',h:'Cake Box Holdings - Notice of Half Year Results',chg:0.0,sr:67,mc:74.8},
@@ -574,7 +606,7 @@ var FOLIO = [
   {t:'Oct 28, 2026',co:'BRCK',type:'trading',h:'Half Year Trading Update and Notice of Results',chg:-15.3,sr:70,mc:120.1}
 ];
 var STOCK = [
-  {t:'7:00 am',type:'broker',note:'srb-1023',chg:-10.17},
+  {t:'12:40 pm',type:'broker',note:'srb-1023',chg:-10.17},
   {t:'Oct 21, 2026',type:'reuters',h:'Brief: Serabi Gold FY2026 Gold Production Expected Similar To FY2025, Below Prior Guidance Of Over 44,000 Ounces',chg:-11.1},
   {t:'Oct 21, 2026',type:'trading',h:'Reports Q3-2026 Production & Operational Highlights',chg:-11.1},
   {t:'Sep 28, 2026',type:'reuters',h:'Europe Research Roundup: Bridgepoint Group, Dormakaba Holding, L’Oreal',chg:-2.8},
@@ -743,6 +775,8 @@ function vToday(){
   return shell('today',
     '<div class="today"><section class="wcard" aria-labelledby="w-news"><div class="whead"><h2 id="w-news">News</h2>'+
       '<div class="seg2" role="group" aria-label="News scope"><button type="button" data-tab="markets" aria-pressed="'+(STATE.tab==='markets')+'">My markets ('+MARKETS.length+')</button><button type="button" data-tab="folios" aria-pressed="'+(STATE.tab==='folios')+'">My folios ('+FOLIOS_TODAY.length+')</button></div>'+
+      /* Mobile: dropdown instead of the segmented control, as live */
+      '<label class="sr-only" for="tabsel">News scope</label><span class="tfwrap tabwrap"><select id="tabsel" class="tfsel"><option value="markets"'+(STATE.tab==='markets'?' selected':'')+'>My markets ('+MARKETS.length+')</option><option value="folios"'+(STATE.tab==='folios'?' selected':'')+'>My folios ('+FOLIOS_TODAY.length+')</option></select><span class="msym" aria-hidden="true">arrow_drop_down</span></span>'+
       (isDefault() ? '' : '<span class="fapplied"><span class="msym" aria-hidden="true">check</span>Filters applied<button type="button" class="fa-x" data-reset aria-label="Reset filters to default"><span class="msym" aria-hidden="true">close</span></button></span>')+
       '<a class="btn" href="#" data-go="feed">News feed</a></div>'+
       '<div class="wscroll">'+table(visible(rows), cols)+'</div></section>'+
@@ -775,7 +809,9 @@ function vFeed(){
   var rows = all.slice((STATE.pgN-1)*PAGE_SIZE, STATE.pgN*PAGE_SIZE);
   var SEG = '<div class="seg2" role="group" aria-label="News scope"><button type="button" data-tab="markets" aria-pressed="'+(STATE.tab==='markets')+'">My markets</button><button type="button" data-tab="folios" aria-pressed="'+(STATE.tab==='folios')+'">My folios</button></div>';
   return shell('today',
-    '<div class="feed-grid"><div class="feed-left"><h1 class="ptl">News feed</h1>'+
+    '<div class="feed-grid"><div class="feed-left"><div class="ptlrow"><h1 class="ptl">News</h1>'+
+      /* Mobile (refined): segmented control beside the title */
+      '<span class="ptlseg">'+SEG+'</span></div>'+
       '<div class="seg2" role="group" aria-label="News scope"><button type="button" data-tab="markets" aria-pressed="'+(STATE.tab==='markets')+'">My markets</button><button type="button" data-tab="folios" aria-pressed="'+(STATE.tab==='folios')+'">My folios</button></div>'+
       '<button type="button" class="btn btn-sm fbtn" data-ftoggle aria-expanded="'+STATE.fopen+'"><span class="msym" aria-hidden="true">tune</span>Filter'+(isDefault()?'':'<span class="fdot" aria-label="(filters applied)"></span>')+'</button>'+filterPanel(STATE.fl!=='v2', STATE.fl!=='v2', false, STATE.fl==='v2' ? '<div class="fseg">'+SEG+'</div>' : '')+'</div>'+
     '<div class="feed-right">'+
@@ -783,11 +819,11 @@ function vFeed(){
         /* Count and timeframe side by side above the table, outside the card */
         /* Dropdown first so it doesn't shift as the count changes length */
         ? '<div class="cap rbar"><label class="sr-only" for="tfsel">Timeframe</label><span class="tfwrap"><select id="tfsel" class="tfsel"><option value="today"'+(STATE.tf==='today'?' selected':'')+'>Today</option><option value="7d"'+(STATE.tf==='7d'?' selected':'')+'>Previous 7 days</option></select><span class="msym" aria-hidden="true">arrow_drop_down</span></span>'+
-          '<span class="tcount">'+countLabel(all.length, STATE.pgN)+'</span></div>'+
+          '<span class="tcount">'+countLabel(all.length, STATE.pgN)+'</span>'+'<button type="button" class="btn btn-sm fbtn fbtn-r" data-ftoggle aria-expanded="'+STATE.fopen+'"><span class="msym" aria-hidden="true">tune</span>Filter'+(isDefault()?'':'<span class="fdot" aria-label="(filters applied)"></span>')+'</button>'+'</div>'+
           '<section class="card tablecard" id="feedtable">'+table(rows, ['tm','co','ty','an','chg','sr','mc'])+'</section>'+pager(all.length, STATE.pgN)
         : '<div class="cap capbar"><span>Showing 1-'+rows.length+' of <b>'+rows.length+'</b> results</span></div><section class="card tablecard">'+table(rows, ['tm','co','ty','an','chg','sr','mc'])+'</section>')+
     '</div></div>',
-    crumbs([['Today','today'],['News feed']], ['Today','today']));
+    crumbs([['Today','today'],['News']], ['Today','today']));
 }
 function vFolio(){
   var rows = visible(FOLIO);
@@ -867,7 +903,7 @@ function sheetHtml(){
       '<p class="disc" style="margin:0;flex:none"><strong>Broker note:</strong> '+(n.sponsored ? 'research by '+esc(n.broker)+' via Research Tree, paid for by '+esc(st.name)+'.' : 'third-party research by '+esc(n.broker)+' via Research Tree.')+' Not produced or reviewed by Stockopedia, and not a recommendation to buy or sell.</p>'+
       ('<section class="viewer" aria-label="PDF viewer"><div class="vbar"><span class="fn">'+esc(fname)+'</span>'+
         '<span class="pg"><button class="ibtn" type="button" data-pg="-1" aria-label="Previous page"><span class="msym" aria-hidden="true">chevron_left</span></button><span id="pgl">Page '+STATE.page+' of '+n.pages+'</span><button class="ibtn" type="button" data-pg="1" aria-label="Next page"><span class="msym" aria-hidden="true">chevron_right</span></button></span>'+
-        '<span class="div"></span><button class="ibtn" type="button" data-zm="-10" aria-label="Zoom out"><span class="msym" aria-hidden="true">remove</span></button><span class="zm" id="zml">Fit</span><button class="ibtn" type="button" data-zm="10" aria-label="Zoom in"><span class="msym" aria-hidden="true">add</span></button>'+
+        '<span class="div"></span><button class="ibtn" type="button" data-zm="-10" aria-label="Zoom out"><span class="msym" aria-hidden="true">remove</span></button><button type="button" class="zm" id="zml" data-zfit aria-label="Reset zoom to fit width">Fit</button><button class="ibtn" type="button" data-zm="10" aria-label="Zoom in"><span class="msym" aria-hidden="true">add</span></button>'+
         '<span class="div"></span><a class="ibtn" href="'+(n.pdf||'#')+'"'+(n.pdf?' download data-ext':'')+' aria-label="Download PDF"><span class="msym" aria-hidden="true">download</span></a></div>'+
         '<div class="vscroll" id="vscroll">'+pages+'</div></section>')+
       '<div class="doccard"><div class="thumb" aria-hidden="true">'+(n.thumb?'<img src="'+n.thumb+'" alt="">':pdfPage(n,1,n.pages))+'</div><div><div class="dt">Read the full note</div><div class="dm">PDF · '+n.pages+' pages · '+n.size+'</div>'+
@@ -888,9 +924,48 @@ function sheetHtml(){
 function applyZoom(){
   var sc = document.getElementById('vscroll'); if (!sc) return;
   /* Fit to width, capped at 880px: body text then matches our 15px body copy */
-  var fit = Math.max(280, Math.min(880, sc.clientWidth - 48));
+  var fit = STATE.device==='mobile' ? Math.max(240, sc.clientWidth - 16) : Math.max(280, Math.min(880, sc.clientWidth - 48));
   sc.style.setProperty('--pw', Math.round(fit*STATE.zoom/100)+'px');
   var l = document.getElementById('zml'); if (l) l.textContent = STATE.zoom===100 ? 'Fit' : STATE.zoom+'%';
+}
+/* Pinch to zoom on the pages (touch), trackpad pinch (ctrl+wheel) and double-tap.
+   Zooms the pages only, not the sheet chrome; keeps the point under the fingers in place. */
+function zoomAt(art, z, cx, cy){
+  var sc = document.getElementById('vscroll'); if (!sc) return;
+  var lim = STATE.device==='mobile' ? [100,300] : [50,200];
+  z = Math.round(Math.min(lim[1], Math.max(lim[0], z)));
+  if (z === STATE.zoom) return;
+  var r = sc.getBoundingClientRect(), ar = art.getBoundingClientRect();
+  var x = sc.scrollLeft + cx - r.left, yTop = art.scrollTop + r.top - ar.top, y = art.scrollTop + cy - ar.top - yTop;
+  var f = z / STATE.zoom; STATE.zoom = z; applyZoom();
+  sc.scrollLeft = x*f - (cx - r.left);
+  art.scrollTop = yTop + y*f - (cy - ar.top);
+}
+function bindPinch(art){
+  var sc = document.getElementById('vscroll'); if (!sc) return;
+  var d0 = 0, z0 = 100, lastTap = 0, lx = 0, ly = 0;
+  function dist(t){ return Math.hypot(t[0].clientX-t[1].clientX, t[0].clientY-t[1].clientY); }
+  sc.addEventListener('touchstart', function(e){
+    if (e.touches.length === 2){ d0 = dist(e.touches); z0 = STATE.zoom; e.preventDefault(); }
+  }, {passive:false});
+  sc.addEventListener('touchmove', function(e){
+    if (e.touches.length === 2 && d0){
+      e.preventDefault();
+      var t = e.touches; zoomAt(art, z0 * dist(t) / d0, (t[0].clientX+t[1].clientX)/2, (t[0].clientY+t[1].clientY)/2);
+    }
+  }, {passive:false});
+  sc.addEventListener('touchend', function(e){
+    if (e.touches.length < 2) d0 = 0;
+    if (e.changedTouches.length !== 1 || e.touches.length) return;
+    var t = e.changedTouches[0], now = Date.now();
+    if (now - lastTap < 300 && Math.hypot(t.clientX-lx, t.clientY-ly) < 30){
+      e.preventDefault(); zoomAt(art, STATE.zoom > 100 ? 100 : 250, t.clientX, t.clientY); lastTap = 0;
+    } else { lastTap = now; lx = t.clientX; ly = t.clientY; }
+  });
+  sc.addEventListener('wheel', function(e){
+    if (!e.ctrlKey) return;
+    e.preventDefault(); zoomAt(art, STATE.zoom * Math.exp(-e.deltaY/200), e.clientX, e.clientY);
+  }, {passive:false});
 }
 function renderFSheet(){
   var box = document.getElementById('fsheet');
@@ -919,6 +994,7 @@ function renderSheet(){
   if (STATE.sheet==null || !CUR[STATE.sheet]){ box.hidden = true; box.innerHTML=''; document.body.classList.remove('sheet-open'); return; }
   box.innerHTML = sheetHtml(); box.hidden = false; document.body.classList.add('sheet-open'); placeSheet(); applyZoom();
   var art = box.querySelector('.dr-article.is-pdf');
+  if (art) bindPinch(art);
   if (art) art.addEventListener('scroll', function(){
     if (STATE.pgLock) return;
     var bar = art.querySelector('.vbar'), lim = bar.getBoundingClientRect().bottom + 40, cur = 1;
@@ -985,12 +1061,14 @@ document.getElementById('sheet').addEventListener('click', function(e){
     if (p && sc){ STATE.pgLock=true; sc.scrollTop += p.getBoundingClientRect().top - sc.getBoundingClientRect().top - bar.offsetHeight - 4; setTimeout(function(){ STATE.pgLock=false; }, 150); }
     return;
   }
+  if (a.hasAttribute('data-zfit')){ STATE.zoom=100; applyZoom(); return; }
   if (a.dataset.zm){
     STATE.zoom=Math.min(150, Math.max(50, STATE.zoom+Number(a.dataset.zm)));
     applyZoom();
   }
 });
 function onFilterChange(e){
+  if (e.target.id==='tabsel'){ STATE.tab = e.target.value; render(); var t=document.getElementById('tabsel'); if (t) t.focus(); return; }
   if (e.target.name==='tf' || e.target.id==='tfsel'){ STATE.tf = e.target.value; render(); var t=document.getElementById('tfsel'); if (t) t.focus(); return; }
   var f = e.target.dataset.f; if (!f) return;
   if (f==='ukreg') UKREG.forEach(function(k){ STATE.filters[k]=e.target.checked; });
