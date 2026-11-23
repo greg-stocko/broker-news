@@ -778,7 +778,7 @@ function vToday(){
       /* Mobile: dropdown instead of the segmented control, as live */
       '<label class="sr-only" for="tabsel">News scope</label><span class="tfwrap tabwrap"><select id="tabsel" class="tfsel"><option value="markets"'+(STATE.tab==='markets'?' selected':'')+'>My markets ('+MARKETS.length+')</option><option value="folios"'+(STATE.tab==='folios'?' selected':'')+'>My folios ('+FOLIOS_TODAY.length+')</option></select><span class="msym" aria-hidden="true">arrow_drop_down</span></span>'+
       (isDefault() ? '' : '<span class="fapplied"><span class="msym" aria-hidden="true">check</span>Filters applied<button type="button" class="fa-x" data-reset aria-label="Reset filters to default"><span class="msym" aria-hidden="true">close</span></button></span>')+
-      '<a class="btn" href="#" data-go="feed">News feed</a></div>'+
+      '<a class="btn" href="#" data-go="feed" aria-label="See all news">See all</a></div>'+
       '<div class="wscroll">'+table(visible(rows), cols)+'</div></section>'+
     '<div><div class="ghost"><h2>My folios</h2><div class="gl"></div><div class="gl"></div><div class="gl" style="width:70%"></div></div>'+
     '<div class="ghost" style="margin-top:16px"><h2>StockRank™ performance</h2><div class="gl"></div><div class="gl"></div><div class="gl" style="width:50%"></div></div></div></div>');
